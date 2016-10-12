@@ -12,20 +12,21 @@
   $dbh->query('SET NAMES utf8'); 
   
   // SQl文の実行
+  if (!empty ($_POST)) {
   $sql = 'INSERT INTO `posts`(`id`,`nickname`, `comment`,`created`) VALUES (null,"'.$nickname.'", "'.$comment.'",now())';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
-  
+
   while (1) {
     $rec = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($rec == false) {
       break;
-  }
+    }
   echo $rec['id'] . '<br>'; 
   echo $rec['nickname'] . '<br>';
   echo $rec['comment'] . '<br>';
-  echo '<hr>';
  }
+}
   // データベースを切断する
   $dbh = null;
 ?>
@@ -64,7 +65,6 @@
   $sql = 'SELECT * FROM `posts`';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
-  
   while (1) {
     $rec = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($rec == false) {
