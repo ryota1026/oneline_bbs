@@ -1,5 +1,8 @@
 <?php
   // ここにDBに登録する処理を記述する
+  $nickname = $_POST['nickname'];
+  $comment = $_POST['comment'];
+  
   // データベースへの接続
   $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
   $user = 'root';
@@ -8,16 +11,14 @@
   $dbh = new PDO($dsn, $user, $password);
   $dbh->query('SET NAMES utf8'); 
   
-
-
+  
   //POST送信が行われた時
     if (!empty ($_POST)) {
-    $sql = 'INSERT INTO `posts`(`id`,`nickname`, `comment`,`created`) VALUES (null,"'.$nickname.'", "'.$comment.'",now())';
+    $sql = 'INSERT INTO `posts`(`id`,`nickname`,`comment`,`created`) VALUES (null,"'.$nickname.'","'.$comment.'",now())';
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     }
    
-
   //SQL文の作成(SELECT文)
   $sql = 'SELECT * FROM `posts` ORDER BY `created` DESC';
 
@@ -56,30 +57,44 @@
   <link rel="stylesheet" href="assets/css/form.css">
   <link rel="stylesheet" href="assets/css/timeline.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+  <link href="assets2/css/main.css" rel="stylesheet">
+    
+  <link rel="stylesheet" href="assets2/css/font-awesome.min.css">
+    
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    
+   <script src="assets2/js/jquery.min.js"></script>
+   <script type="text/javascript" src="assets2/js/smoothscroll.js"></script> 
+   <script src="assets2/js/Chart.js"></script>
 </head>
+
 <body>
-  <!-- ナビゲーションバー -->
-  <nav class="navbar navbar-default navbar-fixed-top">
+
+  <div id="section-topbar">
+    <div id="topbar-inner">
       <div class="container">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header page-scroll">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#page-top"><span class="strong-title"><i class="fa fa-linux"></i> Oneline bbs</span></a>
-          </div>
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-              </ul>
-          </div>
-          <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-  </nav>
+        <div class="row">
+          <div class="dropdown">
+            <ul id="nav" class="nav">
+              <li class="menu-item"><a class="smoothScroll" href="#about" title="About"><i class="icon-user"></i></a></li>
+              <li class="menu-item"><a class="smoothScroll" href="#fovorite" title="favorite"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a></li>
+              <li class="menu-item"><a class="smoothScroll" href="#chat" title="chat"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
+              <li class="menu-item"><a class="smoothScroll" href="#check" title="Check"><i class="fa fa-check" aria-hidden="true"></i></a></li>
+            </ul><!--/ uL#nav -->
+          </div><!-- /.dropdown -->
+
+          <div class="clear"></div>
+        </div><!--/.row -->
+      </div><!--/.container -->
+
+      <div class="clear"></div>
+    </div><!--/ #topbar-inner -->
+  </div><!--/ #section-topbar -->
+
 
   <!-- Bootstrapのcontainer -->
   <div class="container">
@@ -105,7 +120,7 @@
             </div>
           </div>
           <!-- つぶやくボタン -->
-          <button type="submit" class="btn btn-primary col-xs-12" disabled>つぶやく</button>
+          <button type="submit" class="btn btn-primary col-xs-12" disabled>Don't push here.</button>
         </form>
       </div>
 
@@ -118,19 +133,22 @@
           <article class="timeline-entry">
               <div class="timeline-entry-inner">
                   <div class="timeline-icon bg-success">
-                      <i class="entypo-feather"></i>
-                      <i class="fa fa-cogs"></i>
+                      <i class="fa fa-spinner" aria-hidden="true"></i>
+                      <i class="fa fa-chain-broken" aria-hidden="true"></i>
                   </div>
                   <div class="timeline-label">
+                      
                       <h2><a href="#">
-                      <?php echo $post_each['nickname'] . ' ';?></a> <span>
+                        <?php echo $post_each['nickname'] . ' ';?></a> 
+                      <span>
                         <?php $created = strtotime($post_each['created']);
                           $created = date('Y/m/d',$created);
                           echo $created;
                         ?>
                       </span>
+                      
                       </h2>
-                      <p><?php echo $post_each['comment'] . ' ';?></p>
+                        <p><?php echo $post_each['comment'] . ' ';?></p>
                   </div>
               </div>
           </article>
