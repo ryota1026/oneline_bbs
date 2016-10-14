@@ -1,7 +1,5 @@
 <?php
   // ここにDBに登録する処理を記述する
-  $nickname = htmlspecialchars($_POST['nickname']);
-  $comment = htmlspecialchars($_POST['comment']);
 
   // データベースへの接続
   $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
@@ -11,13 +9,17 @@
   $dbh = new PDO($dsn, $user, $password);
   $dbh->query('SET NAMES utf8'); 
   
+
+
   //POST送信が行われた時
-  if (!empty ($_POST)) {
-  $sql = 'INSERT INTO `posts`(`id`,`nickname`, `comment`,`created`) VALUES (null,"'.$nickname.'", "'.$comment.'",now())';
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute();
- }
- 
+    if (!empty ($_POST)) {
+    $sql = 'INSERT INTO `posts`(`id`,`nickname`, `comment`,`created`) VALUES (null,"'.$nickname.'", "'.$comment.'",now())';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    }
+   
+
+
   //SQL文の作成(SELECT文)
   $sql = 'SELECT * FROM `posts` ORDER BY `created` DESC';
 
@@ -43,6 +45,8 @@
   // データベースを切断する
   $dbh = null;
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="ja">

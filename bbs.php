@@ -1,12 +1,18 @@
 <?php
   // ここにDBに登録する処理を記述する
-  $nickname = $_POST['nickname'];
-  $comment = $_POST['comment'];
   
   // データベースへの接続
   $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
   $user = 'root';
   $password='';
+  // ※以下はサンプルなので、自身のサーバー情報を設定してください。
+
+  // dbnameをロリポップのデータベース名に、hostをロリポップのサーバーに変更
+  // $dsn = 'mysql:dbname=LAA0793008-onelinebbs;host=mysql103.phy.lolipop.lan';
+  // // userをロリポップのユーザー名に変更
+  // $user = 'LAA0793008';
+  // // passwordをロリポップのパスワードに変更
+  // $password = 'JKPuhh7583';
 
   $dbh = new PDO($dsn, $user, $password);
   $dbh->query('SET NAMES utf8'); 
@@ -14,11 +20,25 @@
   
   //POST送信が行われた時
     if (!empty ($_POST)) {
-    $sql = 'INSERT INTO `posts`(`id`,`nickname`,`comment`,`created`) VALUES (null,"'.$nickname.'","'.$comment.'",now())';
+    $nickname = $_POST['nickname'];
+    $comment = $_POST['comment'];
+  
+    $sql = "INSERT INTO `posts`(`id`,`nickname`,`comment`,`created`) VALUES (null,'".$nickname."','".$comment."',now())";
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     }
    
+   //action = deleteがGET送信で送られてきた時
+    if (!empty($_GET) && ($_GET['action'] == 'delete')) {
+    $sql = "DELETE FROM `posts` WHERE `id`= ".$_GET['id'];
+    var_dump($sql);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    }
+   
+   // //二重に実行されないように。最初のURLへリダイレクト
+   // header('Location: bbs.php');
+
   //SQL文の作成(SELECT文)
   $sql = 'SELECT * FROM `posts` ORDER BY `created` DESC';
 
@@ -148,7 +168,9 @@
                       </span>
                       
                       </h2>
-                        <p><?php echo $post_each['comment'] . ' ';?></p>
+                        <p><?php echo $post_each['comment'] . ' ';?></p><br>
+                        <a href="bbs.php?id=<?php echo $post_each['id']?>&action=delete">
+                        <i class="fa fa-trash" aria-hidden="true"></i></a>
                   </div>
               </div>
           </article>
