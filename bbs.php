@@ -69,7 +69,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>セブ掲示版</title>
+  <title>Thanks 2 Slang</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -140,7 +140,7 @@
             </div>
           </div>
           <!-- つぶやくボタン -->
-          <button type="submit" class="btn btn-primary col-xs-12" disabled>Don't push here.</button>
+          <button type="submit" class="btn btn-primary col-xs-12" disabled>Correct,please!</button>
         </form>
       </div>
 

@@ -2,4 +2,7 @@
 	position: absolute;
 	right:10px;
 	bottom:10px;
+  background: linear-gradient(-45deg, rgba(246, 255, 0, 0.7), rgba(255, 0, 161, 0.7)) fixed, url(http://livedoor.blogimg.jp/matunoyma_sato/imgs/6/9/6931baac.jpg) fixed;
+  background-size: cover;
+  font-weight: bold;
 }

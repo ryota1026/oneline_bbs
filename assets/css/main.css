@@ -1,5 +1,8 @@
 body {
   margin-top: 20px;
+  background: linear-gradient(-45deg, rgba(246, 255, 0, 0.5), rgba(255, 0, 161, 0.5)) fixed, url(http://nelog.jp/wp-content/uploads/2014/05/Writer.jpg) fixed;
+  background-size: cover;
+  font-weight: bold;
 }
 
 .content-margin-top {
