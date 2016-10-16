@@ -2,24 +2,24 @@
   // ここにDBに登録する処理を記述する
   
   // データベースへの接続
-  // $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
-  // $user = 'root';
-  // $password='';
+  $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
+  $user = 'root';
+  $password='';
   // ※以下はサンプルなので、自身のサーバー情報を設定してください。
 
   // dbnameをロリポップのデータベース名に、hostをロリポップのサーバーに変更
-  $dsn = 'mysql:dbname=LAA0793008-onelinebbs;host=mysql103.phy.lolipop.lan';
-  // userをロリポップのユーザー名に変更
-  $user = 'LAA0793008';
-  // passwordをロリポップのパスワードに変更
-  $password = 'JKPuhh7583';
+  // $dsn = 'mysql:dbname=LAA0793008-onelinebbs;host=mysql103.phy.lolipop.lan';
+  // // userをロリポップのユーザー名に変更
+  // $user = 'LAA0793008';
+  // // passwordをロリポップのパスワードに変更
+  // $password = 'JKPuhh7583';
 
   $dbh = new PDO($dsn, $user, $password);
   $dbh->query('SET NAMES utf8'); 
   
   
   //POST送信が行われた時
-    if (!empty ($_POST)) {
+    if (!empty($_POST)) {
     $nickname = $_POST['nickname'];
     $comment = $_POST['comment'];
   
@@ -31,15 +31,16 @@
    //action = deleteがGET送信で送られてきた時
     if (!empty($_GET) && ($_GET['action'] == 'delete')) {
     $sql = "DELETE FROM `posts` WHERE `id`= ".$_GET['id'];
-    var_dump($sql);
+    // var_dump($sql);
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     }
 
-    if (!empty($_GET))
+    // if (!empty($_GET))
    
    // //二重に実行されないように。最初のURLへリダイレクト
-   // header('Location: bbs.php');
+      header('Location: bbs.php');
+      exit;
 
   //SQL文の作成(SELECT文)
   $sql = 'SELECT * FROM `posts` ORDER BY `created` DESC';
@@ -85,9 +86,7 @@
 
     <!-- Custom styles for this template -->
   <link href="assets2/css/main.css" rel="stylesheet">
-    
   <link rel="stylesheet" href="assets2/css/font-awesome.min.css">
-    
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
     
@@ -172,10 +171,10 @@
                       </span>
                       
                       </h2>
+                        
                         <p><?php echo $post_each['comment'] . ' ';?></p><br>
-                        <a href="bbs.php?id=<?php echo $post_each['id']?>
-                        &action=delete">
-                        <i class="fa fa-trash" aria-hidden="true"></i></a>
+                          <a href="bbs.php?id=<?php echo $post_each['id']; ?>&action=edit"><i class="fa fa-cog" aria-hidden="true" style="float: right"></i></a>
+                          <a href="bbs.php?id=<?php echo $post_each['id']; ?>&action=delete"><i class="fa fa-trash-o" aria-hidden="true" style="float: right"></i></a>
                   </div>
               </div>
           </article>
