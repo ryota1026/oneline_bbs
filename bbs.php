@@ -2,17 +2,17 @@
   // ここにDBに登録する処理を記述する
   
   // データベースへの接続
-  $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
-  $user = 'root';
-  $password='';
+  // $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
+  // $user = 'root';
+  // $password='';
   // ※以下はサンプルなので、自身のサーバー情報を設定してください。
 
   // dbnameをロリポップのデータベース名に、hostをロリポップのサーバーに変更
-  // $dsn = 'mysql:dbname=LAA0793008-onelinebbs;host=mysql103.phy.lolipop.lan';
-  // // userをロリポップのユーザー名に変更
-  // $user = 'LAA0793008';
-  // // passwordをロリポップのパスワードに変更
-  // $password = 'JKPuhh7583';
+  $dsn = 'mysql:dbname=LAA0793008-onelinebbs;host=mysql103.phy.lolipop.lan';
+  // userをロリポップのユーザー名に変更
+  $user = 'LAA0793008';
+  // passwordをロリポップのパスワードに変更
+  $password = 'JKPuhh7583';
 
   $dbh = new PDO($dsn, $user, $password);
   $dbh->query('SET NAMES utf8'); 
@@ -35,6 +35,8 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     }
+
+    if (!empty($_GET))
    
    // //二重に実行されないように。最初のURLへリダイレクト
    // header('Location: bbs.php');
@@ -69,7 +71,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Thanks 2 Slang</title>
+  <meta <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LovEvangelists</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -93,7 +97,7 @@
 </head>
 
 <body>
-
+<!-- nav -->
   <div id="section-topbar">
     <div id="topbar-inner">
       <div class="container">
@@ -169,7 +173,8 @@
                       
                       </h2>
                         <p><?php echo $post_each['comment'] . ' ';?></p><br>
-                        <a href="bbs.php?id=<?php echo $post_each['id']?>&action=delete">
+                        <a href="bbs.php?id=<?php echo $post_each['id']?>
+                        &action=delete">
                         <i class="fa fa-trash" aria-hidden="true"></i></a>
                   </div>
               </div>

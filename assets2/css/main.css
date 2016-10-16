@@ -135,15 +135,15 @@ a:after {
 	  text-decoration: none;
 	  border-left: 1px solid #111;
 	}
-
+/*
 	#section-topbar ul#nav .active a {
 		background: #44bbaa;
 		border-left: 1px solid #111;
-	}
+	}*/
 
-		#section-topbar ul#nav .active a:hover {
+		/*#section-topbar ul#nav .active a:hover {
 			background: #44bbaa;
-		}
+		}*/
 #section-topbar i {
 	font-size: 25px;
 }
